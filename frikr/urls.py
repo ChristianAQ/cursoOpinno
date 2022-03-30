@@ -16,9 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from photos.views import hello
+from photos.views import home,saludo
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', hello)
+    path('', home)
 ]
