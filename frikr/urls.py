@@ -21,8 +21,8 @@ from users.views import login, logout
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('login/', login),
+    path('logout/', logout),
     re_path(r'^photos/(?P<pk>[0-9]+)$', photo_detail),
     path('', home),
-    path("login/", login),
-    path("logout/", logout),
 ]
