@@ -8,10 +8,17 @@
     <title>Frikr</title>
 </head>
 <body>
+    {% include "photos/includes/menu.html" %}
     <h1>Bienvenido a la web</h1>
-    <h2>Ultims fotos publicadas</h2>
-    {% for photo in photos_list %}
-        <img src="{{ photo.url }}" alt="{{ photo.name }}" title="{{ photo.name }}" height="140">
-    {% endfor %}
+    {% if photos_list|length > 0 %}
+        <h2>Ultims fotos publicadas</h2>
+        {% for photo in photos_list %}
+            <a href="/photos/{{ photo.pk }}">
+                <img src="{{ photo.url }}" alt="{{ photo.name }}" title="{{ photo.name }}" height="140">
+            </a>
+        {% endfor %}
+    {% else %}
+        <p>Unete a nostros y sé el primero en subir una imagen</p>
+    {% endif %}
 </body>
 </html>
