@@ -3,7 +3,6 @@
     {{ photo.name }}
 {% endblock %}
 {% block body %}
-    {% include "photos/includes/menu.html" %}
     <h1>{{ photo.name }}</h1>
     <img src="{{ photo.url }}" alt=" {{ photo.description }}"  title="{{ photo.name}}" width="600">
     <p>

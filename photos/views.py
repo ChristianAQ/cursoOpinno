@@ -2,7 +2,8 @@ from django.http import HttpResponse
 from django.http import HttpResponseNotFound
 from django.shortcuts import render
 from photos.models import Photo, VISIBILITY_PUBLIC
-
+from photos.forms import PhotoForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def saludo(request):
@@ -19,7 +20,7 @@ def home(request):
     """
     # Recupera todas las fotos de la base de datos
     photos = Photo.objects.filter(visibility=VISIBILITY_PUBLIC).order_by('-created_at')
-    context = {'photos_list': photos[:2]}
+    context = {'photos_list': photos[:4]}
     return render(request, 'photos/home.html', context)
 
 def photo_detail(request, pk):
@@ -42,3 +43,23 @@ def photo_detail(request, pk):
     context = {'photo':photo}
     return render(request, 'photos/photo_detail.html', context)
 
+
+@login_required()
+def photo_creation(request):
+    """
+        Presenta al formulario para cerar una foto y en caso ed que la peticion sea POST la valida
+        :param request: objeto HtttpRequest con los datos de la peticion
+        :return: objeto HttpResponse con los datos de la respuesta
+    """
+    message = None
+    if request.method == "POST":
+        photo_with_user = Photo(owner=request.user)
+        photo_form = PhotoForm(request.POST, instance=photo_with_user)
+        if photo_form.is_valid():
+            new_photo = photo_form.save()
+            photo_form = PhotoForm()
+            message = 'Foto creada satisfactoriamente <a href="/photos/{0}">Ver Foto</a>'.format(new_photo.pk)
+    else:
+        photo_form = PhotoForm()
+    context = {'form': photo_form, 'message': message}
+    return render(request, 'photos/photo_creation.html', context)

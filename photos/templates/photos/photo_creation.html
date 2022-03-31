@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %} Crear foto {% endblock %}
+{% block body%}
+  <h1>Crear foto</h1>
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {{ form.as_p }}
+    {% if message %} <p> {{ message|safe }} </p> {% endif %}
+    <button type="submit">Crear foto</button>
+  </form>
+{% endblock %}

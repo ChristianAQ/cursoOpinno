@@ -22,7 +22,7 @@ def login(request):
         else:
             if user.is_active:
                 django_login(request, user)
-                return redirect('/')
+                return redirect(request.GET.get('next', '/'))
             else:
                 error_message = "Cuenta de usuario inactiva"
     context = {'error': error_message, 'form': login_form}
@@ -38,4 +38,7 @@ def logout(request):
     if request.user.is_authenticated:
         django_logout(request)
     return redirect('/')
+
+
+
 

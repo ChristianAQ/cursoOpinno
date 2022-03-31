@@ -16,13 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path
 
-from photos.views import home, photo_detail
+from photos.views import home, photo_detail, photo_creation
 from users.views import login, logout
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', login),
     path('logout/', logout),
+    path('create/', photo_creation),
     re_path(r'^photos/(?P<pk>[0-9]+)$', photo_detail),
     path('', home),
 ]
