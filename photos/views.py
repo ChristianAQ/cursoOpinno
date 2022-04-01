@@ -7,6 +7,8 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.generic import ListView
+from django.urls import reverse
+
 
 def saludo(request):
     nombre = request.GET.get('nombre')
@@ -75,7 +77,9 @@ class PhotoCreationView(View):
         if photo_form.is_valid():
             new_photo = photo_form.save()
             photo_form = PhotoForm()
-            message = 'Foto creada satisfactoriamente <a href="/photos/{0}">Ver Foto</a>'.format(new_photo.pk)
+            message = 'Foto creada satisfactoriamente <a href="{0}">Ver Foto</a>'.format(
+                reverse('photos_detail', args=[new_photo.pk])
+            )
         context = {'form': photo_form, 'message': message}
         return render(request, 'photos/photo_creation.html', context)
 
