@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 from django.http import HttpResponseNotFound, HttpResponse
 from django.shortcuts import render
 from photos.models import Photo, VISIBILITY_PUBLIC
@@ -39,6 +40,11 @@ class PhotoDetailView(View):
         """
         #es como hacer un join en la peticion a la base de datos .select_related("owner")
         possible_photos = Photo.objects.filter(pk=pk).select_related("owner")
+        if not request.user.is_authenticated:
+            possible_photos = possible_photos.filter(visibility=VISIBILITY_PUBLIC)
+        else:
+            possible_photos = possible_photos.filter(Q(visibility=VISIBILITY_PUBLIC) | Q(owner=request.user))
+
         if len(possible_photos) == 0:
             #por si no tiene foto ese id
             return HttpResponseNotFound("La imagen que buscas no existe")
@@ -47,7 +53,7 @@ class PhotoDetailView(View):
             return HttpResponse("Multiples opciones", status=300)
 
         photo = possible_photos[0]
-        context = {'photo':photo}
+        context = {'photo': photo}
         return render(request, 'photos/photo_detail.html', context)
 
 
