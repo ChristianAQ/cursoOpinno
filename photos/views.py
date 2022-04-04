@@ -40,6 +40,7 @@ class PhotoDetailView(View):
         """
         #es como hacer un join en la peticion a la base de datos .select_related("owner")
         possible_photos = Photo.objects.filter(pk=pk).select_related("owner")
+        #Esto son querys que van a la bbdd
         if not request.user.is_authenticated:
             possible_photos = possible_photos.filter(visibility=VISIBILITY_PUBLIC)
         else:

@@ -17,7 +17,6 @@ class LoginView(View):
         context = {'error': error_message, 'form': login_form}
         return render(request, 'users/login.html', context)
 
-
     def post(self, request):
         """
         Gestiona el login de un usuario
@@ -40,6 +39,7 @@ class LoginView(View):
                     error_message = "Cuenta de usuario inactiva"
         context = {'error': error_message, 'form': login_form}
         return render(request, 'users/login.html', context)
+
 
 class LogoutView(View):
     def get(self, request):
