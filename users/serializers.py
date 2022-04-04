@@ -2,6 +2,7 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 
 from rest_framework import serializers
+from rest_framework.exceptions import ValidationError
 
 
 class UserListSerializer(serializers.Serializer):
@@ -31,5 +32,16 @@ class UserSerializer(serializers.Serializer):
         instance.save()
         return instance
 
+    def validate_username(self, username):
+        username = super().validate_username(username)
+        if User.objects.filter(username=username).exists():
+            raise ValidationError("El nombre de usuario {0} ya está siendo utilizado".format(username))
+            return username
+
+    def validate_email(self, email):
+        email = super().validate_email(email)
+        if User.objects.filter(email=email).exists():
+            raise ValidationError("El e-mail {0} ya está siendo utilizado".format(email))
+            return email.lower()
 
 
