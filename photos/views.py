@@ -26,8 +26,20 @@ class HomeView(View):
         """
         # Recupera todas las fotos de la base de datos
         photos = Photo.objects.filter(visibility=VISIBILITY_PUBLIC).order_by('-created_at')
-        context = {'photos_list': photos[:4]}
+        context = {'photos_list': photos[:8]}
         return render(request, 'photos/home.html', context)
+
+
+class PhotoQueryset(object):
+
+    @staticmethod
+    def get_photos_by_user(user):
+        possible_photos = Photo.objects.select_related("owner")
+        if not user.is_authenticated:
+            possible_photos = possible_photos.filter(visibility=VISIBILITY_PUBLIC)
+        elif not user.is_superuser:
+            possible_photos = possible_photos.filter(Q(visibility=VISIBILITY_PUBLIC) | Q(owner=user))
+        return possible_photos
 
 
 class PhotoDetailView(View):
@@ -39,13 +51,7 @@ class PhotoDetailView(View):
             :return: objeto HttpResponse con los datos de la respuesta
         """
         #es como hacer un join en la peticion a la base de datos .select_related("owner")
-        possible_photos = Photo.objects.filter(pk=pk).select_related("owner")
-        #Esto son querys que van a la bbdd
-        if not request.user.is_authenticated:
-            possible_photos = possible_photos.filter(visibility=VISIBILITY_PUBLIC)
-        else:
-            possible_photos = possible_photos.filter(Q(visibility=VISIBILITY_PUBLIC) | Q(owner=request.user))
-
+        possible_photos = PhotoQueryset.get_photos_by_user(request.user).filter(pk=pk).select_related("owner")
         if len(possible_photos) == 0:
             #por si no tiene foto ese id
             return HttpResponseNotFound("La imagen que buscas no existe")
