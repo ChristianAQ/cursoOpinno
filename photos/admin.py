@@ -1,8 +1,6 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
-
 from photos.models import Photo
-
 
 class PhotoAdmin(admin.ModelAdmin):
     list_display = ('name', 'owner_name', 'license', 'visibility')

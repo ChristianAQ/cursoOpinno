@@ -25,7 +25,8 @@ VISIBILITY = (
 class Photo(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=150)
-    url = models.URLField()
+    url = models.URLField(null=True, blank=True)
+    image = models.ImageField(upload_to='albums/images/')
     description = models.TextField(null=True, blank=True, validators=[badwords])
     license = models.CharField(max_length=3, choices=LICENSES, default=LICENSE_CC)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -34,3 +35,4 @@ class Photo(models.Model):
 
     def __str__(self):
         return self.name
+

@@ -1,5 +1,6 @@
 <a href="{% url 'photos_home' %}">Home</a>
-|
+<a href="{% url 'photos_home' %}"><img src="/static/images/Logo.svg"></a>
+
 {% if user.is_authenticated %}
     <a href="{% url 'photos_my_photos' %}">Mis fotos</a>
     |
