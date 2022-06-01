@@ -5,6 +5,7 @@
   <h1>Crear foto</h1>
   <form method="post" novalidate>
     {% csrf_token %}
+    <input type="file" name="media" multiple>
     {{ form.as_p }}
     {% if message %} <p> {{ message|safe }} </p> {% endif %}
     <button type="submit">Crear foto</button>
