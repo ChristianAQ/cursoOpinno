@@ -1,99 +1,33 @@
 {% extends "base.html" %}
 {% block body %}
-    <h1>Bienvenido a la web</h1>
-    <p>Como Flickr pero en friki</p>
-    {% if photos_list|length > 0 %}
-        <h2>Ultimas fotos publicadas</h2>
+    <div class="section ">
+        <div class="hero-section">
+            <div class="about-text hover-target"><a style="color: #ffeba7" href="{% url 'photos_my_photos' %}">about</a></div>
+            <div class="contact-text hover-target">contact</div>
+            <div class="section-center">
+                <div class="container-fluid">
+                    <div class="row justify-content-center">
+                        <div class="col-12 text-center">
+                            <h1>Inspírate<br>a lo grande</h1>
+                        </div>
+                        <div class="col-12 text-center mb-2">
+                            <div class="dancing"><span>photography</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!------condicion para que de primera aparezca el photo_loop o si no el contenido por defecto------->
+    {% if photos_list|length > 100 %}
         {% include "photos/includes/photo_loop.html" %}
     {% else %}
-        {% include "photos/includes/join_us.html" %}
+        {% include "photos/content_home.html" %}
     {% endif %}
 
-
-<div class="message">
-  Sorry, your browser does not support CSS Grid. 😅
-</div>
-<section class="section">
-  <h1>Nom Nom Gallery</h1>
-  <div class="grid">
-    <div class="item">
-      <div class="item__details">
-        jelly-o brownie sweet
-      </div>
     </div>
-    <div class="item item--large">
-      <div class="item__details">
-        Muffin jelly gingerbread
-      </div>
-    </div>
-    <div class="item item--medium">
-      <div class="item__details">
-        sesame snaps chocolate
-      </div>
-    </div>
-    <div class="item item--large">
-      <div class="item__details">
-        Oat cake
-      </div>
-    </div>
-    <div class="item item--full">
-      <div class="item__details">
-         jujubes cheesecake
-      </div>
-    </div>
-    <div class="item item--medium">
-      <div class="item__details">
-        Dragée pudding brownie
-      </div>
-    </div>
-    <div class="item item--large">
-      <div class="item__details">
-        Oat cake
-      </div>
-    </div>
-    <div class="item">
-      <div class="item__details">
-        powder toffee
-      </div>
-    </div>
-    <div class="item item--medium">
-      <div class="item__details">
-        pudding cheesecake
-      </div>
-    </div>
-    <div class="item item--large">
-      <div class="item__details">
-        toffee bear claw
-      </div>
-    </div>
-    <div class="item">
-      <div class="item__details">
-        cake cookie croissant
-      </div>
-    </div>
-    <div class="item item--medium">
-      <div class="item__details">
-        liquorice sweet roll
-      </div>
-    </div>
-    <div class="item item--medium">
-      <div class="item__details">
-        chocolate marzipan
-      </div>
-    </div>
-    <div class="item item--large">
-      <div class="item__details">
-        danish dessert lollipop
-      </div>
-    </div>
-    <div class="item">
-      <div class="item__details">
-        sugar plum dragée
-      </div>
-    </div>
-  </div>
-</div>
 {% endblock %}
-
-
 

@@ -20,11 +20,9 @@ from django.conf.urls.static import static
 
 from photos import urls as photos_urls
 from users import urls as users_urls
-from register import views as v
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('register/', v.register, name="register"),
     path('', include(photos_urls)),
     path('', include(users_urls)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

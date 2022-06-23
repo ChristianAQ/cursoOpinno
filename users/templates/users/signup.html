@@ -1,7 +1,9 @@
+
 {% extends "base.html" %}
-{% block title %} Login {% endblock %}
+{% block title %} Signup {% endblock %}
 
 {% block body %}
+
     <style>
 
         /****************************/
@@ -295,8 +297,8 @@
 
     </style>
 
-    <div class="section">
-        <div class="container">
+    <div class="section ">
+        <div class="container form-style">
             <div class="row full-height justify-content-center">
                 <div class="col-12 text-center align-self-center">
                     <div class="section pb-5 pt-5 pt-sm-2 text-center">
@@ -306,15 +308,11 @@
                                 <div class="card-front">
                                     <div class="center-wrap">
                                         <div class="section text-center">
-                                            <h4 class="mb-4 pb-3">Log In</h4>
-
+                                            <h4 class="mb-4 pb-3"s style="color: #102770">Formulario de registro</h4>
                                             <form method="post">
                                                 {% csrf_token %}
-                                                <div style="color: white; text-align: left; padding-left: 10px">{{ login_form.as_p }}</div>
-                                                <p style="color: red">{{ error }}</p>
-                                                <button id="botonLogin" type="submit">Login</button>
-                                                <p class="mb-0 mt-4 text-center"><a href="#0" class="link">Forgot your
-                                                    password?</a></p>
+                                                <div style="color: white; text-align: left; padding-left: 10px">{{ form.as_p }}</div>
+                                                <button id="botonLogin" type="submit">Sign up</button>
                                             </form>
                                         </div>
                                     </div>
@@ -326,5 +324,5 @@
             </div>
         </div>
     </div>
-    </form>
+
 {% endblock %}

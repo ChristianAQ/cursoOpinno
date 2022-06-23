@@ -9,9 +9,9 @@ from django.urls import reverse
 class Usuario(models.Model):
     id = models.AutoField(primary_key=True)
     nombre = models.CharField("Nombre",max_length=35, null=True, blank=True)
-    ap1 = models.CharField("Apellido 1",max_length=35, null=True, blank=True)
-    ap2 = models.CharField("Apellido 2", max_length=35, null=True, blank=True)
-    email = models.CharField("Email",max_length=25)
+    #ap1 = models.CharField("Apellido 1",max_length=35, null=True, blank=True)
+    #ap2 = models.CharField("Apellido 2", max_length=35, null=True, blank=True)
+    #email = models.CharField("Email",max_length=25)
     user = models.ForeignKey(User, null=True, blank=True, on_delete=models.PROTECT)  # requerido desde django 2.0
 
     def __str__(self):

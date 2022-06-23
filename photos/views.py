@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.http import HttpResponseNotFound, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from photos.models import Photo, VISIBILITY_PUBLIC
 from photos.forms import PhotoForm
 from django.contrib.auth.decorators import login_required
@@ -9,12 +9,6 @@ from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.generic import ListView
 from django.urls import reverse
-
-
-def saludo(request):
-    nombre = request.GET.get('nombre')
-    apellido = request.GET.get('apellido')
-    return HttpResponse("Hello {0} {1}".format(nombre, apellido))
 
 
 class HomeView(View):
@@ -26,7 +20,7 @@ class HomeView(View):
         """
         # Recupera todas las fotos de la base de datos
         photos = Photo.objects.filter(visibility=VISIBILITY_PUBLIC).order_by('-created_at')
-        context = {'photos_list': photos[:8]}
+        context = {'photos_list': photos[:2]}
         return render(request, 'photos/home.html', context)
 
 
@@ -104,6 +98,10 @@ class PhotoListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         result = super().get_queryset().filter(owner=self.request.user)
         return result
+
+
+def GalleryFemale(request):
+    return render(request, 'photos/gallery/female.html')
 
 
 
