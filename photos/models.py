@@ -1,3 +1,6 @@
+from io import BytesIO
+
+from PIL import Image
 from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
@@ -25,13 +28,25 @@ VISIBILITY = (
 class Photo(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=150)
-    url = models.URLField(null=True, blank=True)
-    image = models.ImageField(upload_to='albums/images/')
+    #url = models.URLField(null=True, blank=True)
+    image = models.ImageField(upload_to='uploads/', blank=True, null=True)
+    thumbnail = models.ImageField(upload_to='uploads/', blank=True, null=True)
+
     description = models.TextField(null=True, blank=True, validators=[badwords])
     license = models.CharField(max_length=3, choices=LICENSES, default=LICENSE_CC)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True) #las dos ultimas lineas    poner la fecha creada y actualizada automaticamente
     visibility = models.CharField(max_length=3, choices=VISIBILITY, default=VISIBILITY_PUBLIC)
+    def save(self, *args, **kwargs):
+        self.thumbnail = self.make_thumbnail(self.image)
+        super().save(*args, **kwargs)
+    def make_thumbnail(self, image, size=(300, 200)):
+        img = Image.open(image)
+        img.convert('RGB')
+        img.thumbnail(size)
+
+        thumb_io = BytesIO()
+
 
     def __str__(self):
         return self.name
