@@ -1,9 +1,30 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login as django_login, logout as django_logout
-
+from django.contrib.auth.models import User
+from django.contrib.auth.hashers import check_password
+from rest_framework.decorators import api_view
+from rest_framework.authtoken.models import Token
+from rest_framework.response import Response
 from users.forms import LoginForm
 from django.views import View
 
+@api_view(['POST'])
+def Login(request):
+
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        return Response("Usuario Inválido")
+
+    pwd_valid = check_password(password, user.password)
+    if not pwd_valid:
+        return Response("Contraseña Inválida")
+
+    token, _ = Token.objects.get_or_create(user=user)
+    #print(token.key)
+    return Response(token.key)
 
 class LoginView(View):
     def get(self, request):

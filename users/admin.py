@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 from photos.models import Photo
-from users.models import Usuario, Registrado, Administrador, PerfilSocial
+from users.models import Usuario, Registrado, Administrador, PerfilSocial, Review
 
 
 class UsuarioAdmin(admin.ModelAdmin):
