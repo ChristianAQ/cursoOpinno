@@ -2,8 +2,8 @@
 {% block body %}
     <div class="section ">
         <div class="hero-section">
-            <div class="about-text hover-target"><a style="color: #ffeba7" href="{% url 'photos_my_photos' %}">about</a></div>
-            <div class="contact-text hover-target">contact</div>
+            <div class="about-text hover-target"><a style="color: #ffeba7" href="{% url 'about' %}">about</a></div>
+            <div class="contact-text hover-target"><a style="color: #ffeba7" href="{% url 'contact' %}">contact</a></div>
             <div class="section-center">
                 <div class="container-fluid">
                     <div class="row justify-content-center">
@@ -20,13 +20,9 @@
     </div>
 
 
+    <!--Incluimos lo que va debajo del home para optimizar-->
 
-    <!------condicion para que de primera aparezca el photo_loop o si no el contenido por defecto------->
-    {% if photos_list|length > 100 %}
-        {% include "photos/includes/photo_loop.html" %}
-    {% else %}
-        {% include "photos/content_home.html" %}
-    {% endif %}
+    {% include "photos/content_home.html" %}
 
     </div>
 {% endblock %}

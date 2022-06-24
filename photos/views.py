@@ -87,6 +87,7 @@ class PhotoCreationView(View):
             message = 'Foto creada satisfactoriamente <a href="{0}">Ver Foto</a>'.format(
                 reverse('photos_detail', args=[new_photo.pk])
             )
+
         context = {'form': photo_form, 'message': message}
         return render(request, 'photos/photo_creation.html', context)
 
@@ -103,8 +104,12 @@ class PhotoListView(LoginRequiredMixin, ListView):
 def GalleryFemale(request):
     return render(request, 'photos/gallery/female.html')
 
+def About(request):
+    return render(request, 'photos/about.html')
 
 
+def Contact(request):
+    return render(request, 'photos/contact.html')
 
 
 
