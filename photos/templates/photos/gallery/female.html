@@ -1,13 +1,28 @@
 {% extends "base.html" %}
 {% block content %}
 
+<div class="container " style="margin-top: 120px">
+    <ul class="card-list-ch">
+        {% for photo in photos_list %}
+            <li class="card-ch">
+                <a class="card-image-ch" href="{% url 'photos_detail' photo.pk %}"
+                   style="background-image:url({{ photo.url }});">
+                </a>
+                <div style="background-color: white">
+                    <h2>{{ photo.name }}</h2>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
 <div style="font-family: Satisfy;
   font-size:100px;
   text-align:center;
   color:black;
   padding:1%;">
 <div class="container" style="margin-top: 120px">
-    <h1 class="Gallery">Responsive Image Gallery</h1><hr>
+    <h1 class="Gallery">Image Gallery</h1><hr>
 <div id="gallery" class="container-fluid">
   <img src="https://source.unsplash.com/1600x1200?female,portrait" class="img-responsive">
   <img src="https://source.unsplash.com/1024x768?female,portrait" class="img-responsive">

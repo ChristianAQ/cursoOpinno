@@ -1,7 +1,7 @@
 from rest_framework.exceptions import ValidationError
 
-
-BADWORDS = ("meapilas", "aparcabicis", "caraanchoa", "bobo", "cabrón", "cabron", "idiota")
+#lista de palabras mal sonantes u ofensivas
+BADWORDS = ("tonto", "caraanchoa", "bobo", "cabrón", "pendejo", "idiota")
 
 
 def badwords(description):
